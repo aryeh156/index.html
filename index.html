@@ -98,16 +98,19 @@
       }
     }
     function copyResult() {
-      const resultText = document.getElementById("result").textContent;
-        if (!resultText) return;
+    const resultText = document.getElementById("result").textContent;
+    if (!resultText.trim()) return;
 
-        navigator.clipboard.writeText(resultText)
-        .then(() => {
-      alert("Copied to clipboard!");
-          })
-      .catch(err => {
-      alert("Failed to copy: " + err);
-    });
+    navigator.clipboard.writeText(resultText).then(() => {
+    const btn = document.getElementById("copyButton");
+    const originalText = btn.textContent;
+    btn.textContent = "✅ Copied!";
+    setTimeout(() => {
+      btn.textContent = originalText;
+    }, 1500);
+  });
+}
+
 }
   </script>
 
