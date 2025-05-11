@@ -38,6 +38,7 @@
     <h2>Hebrew Bible Reference Converter</h2>
     <input type="text" id="hebrewInput" placeholder="Enter Hebrew reference (e.g., בראשית מג לג)">
     <button onclick="convertReference()">Convert</button>
+    <button onclick="copyResult()">📋 Copy</button>
     <div id="result"></div>
   </div>
 
@@ -96,6 +97,18 @@
         result.textContent = ` ${bookMapping[book]} ${chapter}:${verse}`;
       }
     }
+    function copyResult() {
+      const resultText = document.getElementById("result").textContent;
+        if (!resultText) return;
+
+        navigator.clipboard.writeText(resultText)
+        .then(() => {
+      alert("Copied to clipboard!");
+          })
+      .catch(err => {
+      alert("Failed to copy: " + err);
+    });
+}
   </script>
 
 </body>
