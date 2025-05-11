@@ -75,7 +75,7 @@
     }
 
     function convertReference() {
-      const input = document.getElementById("hebrewInput").value.trim();
+      let input = document.getElementById("hebrewInput").value.trim();
       const result = document.getElementById("result");
       input = removeQuotes(input);
       const parts = input.split(" ");
