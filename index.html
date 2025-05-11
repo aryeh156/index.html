@@ -53,7 +53,7 @@
       "בראשית": "Gen.", "שמות": "Exod.", "ויקרא": "Lev.", "במדבר": "Num.", "דברים": "Deut.",
       "יהושע": "Josh.", "שופטים": "Judg.", "שמואל א": "1 Sam.", "שמואל ב": "2 Sam.",
       "מלכים א": "1 Kings", "מלכים ב": "2 Kings", "ישעיהו": "Isa.", "ירמיהו": "Jer.",
-      "יחזקאל": "Ezek.", "תהילים": "Ps.", "משלי": "Prov.", "איוב": "Job",
+      "יחזקאל": "Ezek.", "תהילים": "Ps.", "תהלים": "Ps.","משלי": "Prov.", "איוב": "Job",
       "שיר השירים": "Song of Sol.", "רות": "Ruth", "איכה": "Lam.", "קהלת": "Eccl.",
       "אסתר": "Esther", "דניאל": "Dan.", "עזרא": "Ezra", "נחמיה": "Neh.",
       "דברי הימים א": "1 Chr.", "דברי הימים ב": "2 Chr.", "הושע": "Hos.", "יואל": "Joel",
@@ -87,11 +87,11 @@
       const verse = hebrewToInt(parts[parts.length - 1]);
 
       if (!bookMapping[book]) {
-        result.textContent = "❌ Unknown book name.";
+        result.textContent = " Unknown book name.";
       } else if (chapter === null || verse === null) {
-        result.textContent = "❌ Invalid Hebrew numerals.";
+        result.textContent = " Invalid Hebrew numerals.";
       } else {
-        result.textContent = `✅ ${bookMapping[book]} ${chapter}:${verse}`;
+        result.textContent = ` ${bookMapping[book]} ${chapter}:${verse}`;
       }
     }
   </script>
