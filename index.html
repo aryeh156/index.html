@@ -77,7 +77,7 @@
     function convertReference() {
       const input = document.getElementById("hebrewInput").value.trim();
       const result = document.getElementById("result");
-      input = removeQuotes(input)
+      input = removeQuotes(result)
       const parts = input.split(" ");
       if (parts.length < 3) {
         result.textContent = "❌ Please enter: Book Chapter Verse (e.g., בראשית מג לג)";
