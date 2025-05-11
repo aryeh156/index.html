@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebrew Bible Reference Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+    .converter {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      font-size: 1rem;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="converter">
+    <h2>Hebrew Bible Reference Converter</h2>
+    <input type="text" id="hebrewInput" placeholder="Enter Hebrew reference (e.g., בראשית מג לג)">
+    <button onclick="convertReference()">Convert</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const hebrewGematria = {
+      'א': 1, 'ב': 2, 'ג': 3, 'ד': 4, 'ה': 5, 'ו': 6, 'ז': 7, 'ח': 8, 'ט': 9,
+      'י': 10, 'כ': 20, 'ך': 20, 'ל': 30, 'מ': 40, 'ם': 40, 'נ': 50, 'ן': 50,
+      'ס': 60, 'ע': 70, 'פ': 80, 'ף': 80, 'צ': 90, 'ץ': 90,
+      'ק': 100, 'ר': 200, 'ש': 300, 'ת': 400
+    };
+
+    const bookMapping = {
+      "בראשית": "Gen.", "שמות": "Exod.", "ויקרא": "Lev.", "במדבר": "Num.", "דברים": "Deut.",
+      "יהושע": "Josh.", "שופטים": "Judg.", "שמואל א": "1 Sam.", "שמואל ב": "2 Sam.",
+      "מלכים א": "1 Kings", "מלכים ב": "2 Kings", "ישעיהו": "Isa.", "ירמיהו": "Jer.",
+      "יחזקאל": "Ezek.", "תהילים": "Ps.", "משלי": "Prov.", "איוב": "Job",
+      "שיר השירים": "Song of Sol.", "רות": "Ruth", "איכה": "Lam.", "קהלת": "Eccl.",
+      "אסתר": "Esther", "דניאל": "Dan.", "עזרא": "Ezra", "נחמיה": "Neh.",
+      "דברי הימים א": "1 Chr.", "דברי הימים ב": "2 Chr.", "הושע": "Hos.", "יואל": "Joel",
+      "עמוס": "Amos", "עובדיה": "Obad.", "יונה": "Jonah", "מיכה": "Mic.",
+      "נחום": "Nah.", "חבקוק": "Hab.", "צפניה": "Zeph.", "חגי": "Hag.",
+      "זכריה": "Zech.", "מלאכי": "Mal."
+    };
+
+    function hebrewToInt(str) {
+      let total = 0;
+      for (let char of str) {
+        const val = hebrewGematria[char];
+        if (val === undefined) return null;
+        total += val;
+      }
+      return total;
+    }
+
+    function convertReference() {
+      const input = document.getElementById("hebrewInput").value.trim();
+      const result = document.getElementById("result");
+
+      const parts = input.split(" ");
+      if (parts.length < 3) {
+        result.textContent = "❌ Please enter: Book Chapter Verse (e.g., בראשית מג לג)";
+        return;
+      }
+
+      const book = parts.slice(0, -2).join(" ");
+      const chapter = hebrewToInt(parts[parts.length - 2]);
+      const verse = hebrewToInt(parts[parts.length - 1]);
+
+      if (!bookMapping[book]) {
+        result.textContent = "❌ Unknown book name.";
+      } else if (chapter === null || verse === null) {
+        result.textContent = "❌ Invalid Hebrew numerals.";
+      } else {
+        result.textContent = `✅ ${bookMapping[book]} ${chapter}:${verse}`;
+      }
+    }
+  </script>
+
+</body>
+</html>
